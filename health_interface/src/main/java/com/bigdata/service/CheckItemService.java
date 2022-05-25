@@ -3,6 +3,8 @@ package com.bigdata.service;
 import com.bigdata.entity.PageResult;
 import com.bigdata.pojo.CheckItem;
 
+import java.util.List;
+
 /**
  * @ClassName: CheckItemService
  * @Description 检查项服务接口
@@ -39,4 +41,10 @@ public interface CheckItemService {
      * @param checkItem
      */
     void edit(CheckItem checkItem);
+
+    /**
+     * 查询
+     * @return
+     */
+    List<CheckItem> findAll();
 }

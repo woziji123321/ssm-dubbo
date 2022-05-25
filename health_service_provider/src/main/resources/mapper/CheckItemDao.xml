@@ -32,6 +32,10 @@
     <select id="findById" parameterType="int" resultType="com.bigdata.pojo.CheckItem">
         select * from t_checkitem where id = #{id}
     </select>
+    <!--查询-->
+    <select id="findAll" resultType="com.bigdata.pojo.CheckItem">
+        select * from t_checkitem
+    </select>
 
     <!--编辑-->
     <update id="edit" parameterType="com.bigdata.pojo.CheckItem">

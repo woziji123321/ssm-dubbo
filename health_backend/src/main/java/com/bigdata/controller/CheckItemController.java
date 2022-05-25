@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @ClassName: CheckItemController
  * @Description 体检检查项管理
@@ -35,10 +37,10 @@ public class CheckItemController {
     public Result add(@RequestBody CheckItem checkItem){
         try {
             checkItemService.add(checkItem);
+            return new Result(true,MessageConstant.ADD_CHECKGROUP_SUCCESS);
         }catch (Exception e){
             return new Result(false, MessageConstant.ADD_CHECKGROUP_FAIL);
         }
-        return new Result(true,MessageConstant.ADD_CHECKGROUP_SUCCESS);
     }
 
     /**
@@ -62,12 +64,15 @@ public class CheckItemController {
      */
     @RequestMapping("/delete")
     public Result delete(Integer id){
-        try{
+        try {
             checkItemService.delete(id);
+            return new Result(true,MessageConstant.DELETE_CHECKITEM_SUCCESS);
         }catch (RuntimeException e){
-            return new Result(false,MessageConstant.DELETE_CHECKITEM_FAIL);
+            return new Result(false,e.getMessage());
+        }catch (Exception e){
+            return new Result(false, MessageConstant.DELETE_CHECKITEM_FAIL);
         }
-        return new Result(true,MessageConstant.DELETE_CHECKITEM_SUCCESS);
+
     }
 
     @RequestMapping("/findById")
@@ -91,10 +96,19 @@ public class CheckItemController {
     public Result edit(@RequestBody CheckItem checkItem){
         try {
             checkItemService.edit(checkItem);
+            return new Result(true,MessageConstant.EDIT_CHECKGROUP_SUCCESS);
         }catch (Exception e){
+            e.printStackTrace();
             return new Result(false,MessageConstant.EDIT_CHECKGROUP_FAIL);
         }
-        return new Result(true,MessageConstant.EDIT_CHECKGROUP_SUCCESS);
     }
 
+    @RequestMapping("/findAll")
+    public Result findAll(){
+        List<CheckItem> checkItemList = checkItemService.findAll();
+        if (checkItemList != null&&checkItemList.size() > 0){
+            return new Result(true,MessageConstant.QUERY_CHECKITEM_SUCCESS,checkItemList);
+        }
+        return new Result(false,MessageConstant.QUERY_CHECKITEM_FAIL);
+    }
 }

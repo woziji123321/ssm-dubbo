@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 
 
 /**
@@ -27,9 +28,7 @@ public class CheckItemServiceImpl implements CheckItemService{
 
     @Override
     public void add(CheckItem checkItem) {
-       checkItemDao.add(checkItem);
-
-
+       this.checkItemDao.add(checkItem);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class CheckItemServiceImpl implements CheckItemService{
             //当前检查项被引用，不能删除
             throw new RuntimeException("当前检查项被引用，不能删除");
         }
-        checkItemDao.deleteById(id);
+        this.checkItemDao.deleteById(id);
     }
 
     @Override
@@ -56,6 +55,11 @@ public class CheckItemServiceImpl implements CheckItemService{
 
     @Override
     public void edit(CheckItem checkItem) {
-        checkItemDao.edit(checkItem);
+        this.checkItemDao.edit(checkItem);
+    }
+
+    @Override
+    public List<CheckItem> findAll() {
+        return checkItemDao.findAll();
     }
 }

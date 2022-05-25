@@ -234,7 +234,6 @@
                 this.findPage();
             },
             //编辑
-            //编辑
             handleEdit() {
                 //表单校验
                 this.$refs['dataEditForm'].validate((valid)=>{
@@ -318,17 +317,32 @@
             // 弹出编辑窗口
             handleUpdate(row) {
                 //发送请求获取检查项信息
+                this.dialogFormVisible4Edit = true;
                 axios.get("/checkitem/findById.do?id=" + row.id).then((res)=>{
-                    if(res.data.flag){
+                    /*if(res.data.flag){
                         //设置编辑窗口属性，dialogFormVisible4Edit为true表示显示
                         this.dialogFormVisible4Edit = true;
                         //为模型数据设置值，基于VUE双向数据绑定回显到页面
                         this.formData = res.data.data;
                     }else{
                         this.$message.error("获取数据失败，请刷新当前页面");
+                    }*/
+                    //直接前端方式赋值
+                    this.formData={};
+
+                    this.formData={
+                        id:row.id,
+                        code:row.code,
+                        name:row.name,
+                        sex:row.sex,
+                        age:row.age,
+                        remark:row.remark,
+                        price:row.price,
+                        type:row.type,
+                        attention:row.attention
                     }
                 });
-            },
+            }   ,
             //切换页码
             handleCurrentChange(currentPage) {
                 //currentPage为切换后的页码
@@ -340,7 +354,7 @@
                 //alert(row.id);
                 this.$confirm("确认删除当前选中记录吗？","提示",{type:'warning'}).then(()=>{
                     //点击确定按钮时只需此处代码
-                    alert('用户点击的是确定按钮');
+                    //alert('用户点击的是确定按钮');
                     axios.get("/checkitem/delete.do?id=" + row.id).then((res)=> {
                         if(!res.data.flag){
                             //删除失败
@@ -352,7 +366,7 @@
                                 type: 'success'
                             });
                             //调用分页，获取最新分页数据
-                            this.findPage();
+                            this.findPages();
                         }
                     });
                 });

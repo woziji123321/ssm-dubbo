@@ -3,6 +3,8 @@ package com.bigdata.dao;
 import com.bigdata.pojo.CheckItem;
 import com.github.pagehelper.Page;
 
+import java.util.List;
+
 /**
  * @ClassName: CheckItemDao
  * @Description 持久层Dao接口
@@ -15,29 +17,39 @@ public interface CheckItemDao {
      * 增加
      * @param checkItem
      */
-    public void add(CheckItem checkItem);
+    void add(CheckItem checkItem);
 
     /**
      * 分页
      * @param queryString
      * @return
      */
-    public Page<CheckItem> selectByCondition(String queryString);
+    Page<CheckItem> selectByCondition(String queryString);
 
     /**
      * 检查索引
      * @param id
      * @return
      */
-    public long findCountByCheckItemId(Integer id);
+    long findCountByCheckItemId(Integer id);
 
     /**
      * 删除
      * @param id
      */
-    public void deleteById(Integer id);
+    void deleteById(Integer id);
 
-    public CheckItem findById(Integer id);
+    CheckItem findById(Integer id);
 
-    public void edit(CheckItem checkItem);
+    /**
+     * 修改
+     * @param checkItem
+     */
+    void edit(CheckItem checkItem);
+
+    /**
+     * 查询
+     * @return
+     */
+    List<CheckItem> findAll();
 }
