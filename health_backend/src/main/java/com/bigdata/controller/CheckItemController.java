@@ -44,20 +44,6 @@ public class CheckItemController {
     }
 
     /**
-     * 分页查询
-     * @param queryPageBean
-     * @return
-     */
-    @RequestMapping("/findPage")
-    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
-        PageResult pageResult = checkItemService.pageQuery(
-                queryPageBean.getCurrentPage(),
-                queryPageBean.getPageSize(),
-                queryPageBean.getQueryString());
-        return pageResult;
-    }
-
-    /**
      * 删除
      * @param id
      * @return
@@ -75,6 +61,11 @@ public class CheckItemController {
 
     }
 
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
     @RequestMapping("/findById")
     public Result findById(Integer id){
         try {
@@ -103,6 +94,10 @@ public class CheckItemController {
         }
     }
 
+    /**
+     * 查询检查项的所有内容和检查组新增绑定
+     * @return
+     */
     @RequestMapping("/findAll")
     public Result findAll(){
         List<CheckItem> checkItemList = checkItemService.findAll();
@@ -110,5 +105,19 @@ public class CheckItemController {
             return new Result(true,MessageConstant.QUERY_CHECKITEM_SUCCESS,checkItemList);
         }
         return new Result(false,MessageConstant.QUERY_CHECKITEM_FAIL);
+    }
+
+    /**
+     * 分页查询
+     * @param queryPageBean
+     * @return
+     */
+    @RequestMapping("/findPage")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+        PageResult pageResult = checkItemService.pageQuery(
+                queryPageBean.getCurrentPage(),
+                queryPageBean.getPageSize(),
+                queryPageBean.getQueryString());
+        return pageResult;
     }
 }

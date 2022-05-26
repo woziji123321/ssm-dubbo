@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bigdata.dao.SetmealDao">
 
+    <!--分页显示数据-->
     <select id="selectByCondition" resultType="com.bigdata.pojo.Setmeal" parameterType="string">
         select *
         from t_setmeal
@@ -20,30 +21,34 @@
             (#{name},#{code},#{helpCode},#{sex},#{age},#{price},#{remark},#{attention},#{img})
     </insert>
 
-    <!--设置检查组和检查项的关联关系-->
+    <!--设置套餐和检查组的关联关系-->
     <insert id="setSetmealAndCheckGroup" parameterType="hashmap">
         insert into t_setmeal_checkgroup (setmeal_id,checkgroup_id)
         values
             (#{setmeal_id},#{checkgroup_id})
     </insert>
 
+    <!--根据id查询-->
     <select id="findById" resultType="com.bigdata.pojo.Setmeal" parameterType="int">
         select * from t_setmeal where id = #{id}
     </select>
 
+    <!--删除-->
     <delete id="deleteById" parameterType="int">
         delete from t_setmeal where id = #{id}
     </delete>
 
+    <!--先删后增-->
     <delete id="deleteAssociation">
         delete from t_setmeal_checkgroup where setmeal_id = #{id}
     </delete>
 
-
+    <!--根据套餐id查询对应的所有检查组id-->
     <select id="findCheckGroupIdsBySetmeal" parameterType="int" resultType="int">
         select checkgroup_id from t_setmeal_checkgroup where setmeal_id = #{id}
     </select>
 
+    <!--修改-->
     <update id="edit" parameterType="com.bigdata.pojo.Setmeal">
         update t_setmeal
         <set>

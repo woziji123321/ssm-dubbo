@@ -14,12 +14,17 @@ import java.util.Map;
  * @Version 1.0
  */
 public interface CheckGroupDao {
+
     /**
      * 增加
      * @param checkGroup
      */
     void add(CheckGroup checkGroup);
 
+    /**
+     * 设置检查组和检查项的关联关系
+     * @param map
+     */
     void setCheckGroupAndCheckItem(Map map);
 
     /**
@@ -29,10 +34,24 @@ public interface CheckGroupDao {
      */
     Page<CheckGroup> selectByCondition(String queryString);
 
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
     CheckGroup findById(Integer id);
 
+    /**
+     * 根据检查组id查询对应的所有检查项id
+     * @param id
+     * @return
+     */
     List<Integer> findCheckItemIdsByCheckGroupId(Integer id);
 
+    /**
+     * 修改删除绑定
+     * @param id
+     */
     void deleteAssociation(Integer id);
 
     /**
@@ -42,20 +61,20 @@ public interface CheckGroupDao {
     void edit(CheckGroup checkGroup);
 
     /**
-     * 检查索引
+     * 根据检查组id查询对应的所有检查项id
      * @param id
      * @return
      */
     long findCountByCheckGroupId(Integer id);
 
     /**
-     * 新增
+     * 删除
      * @param id
      */
     void deleteById(Integer id);
 
     /**
-     * 查询所有
+     * 查询检查组的所有内容和套餐新增绑定
      * @return
      */
     List<CheckGroup> findAll();

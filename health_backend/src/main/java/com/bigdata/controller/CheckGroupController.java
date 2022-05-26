@@ -48,18 +48,20 @@ public class CheckGroupController {
     }
 
     /**
-     * 分页查询
-     * @param queryPageBean
+     * 删除
+     * @param id
      * @return
      */
-    @RequestMapping("/findPage")
-    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
-        PageResult pageResult = checkGroupService.pageQuery(
-                queryPageBean.getCurrentPage(),
-                queryPageBean.getPageSize(),
-                queryPageBean.getQueryString()
-        );
-        return pageResult;
+    @RequestMapping("/delete")
+    public Result delete(Integer id){
+        try {
+            checkGroupService.delete(id);
+            return new Result(true,MessageConstant.DELETE_CHECKGROUP_SUCCESS);
+        }catch (RuntimeException e){
+            return new Result(false,e.getMessage());
+        }catch (Exception e){
+            return new Result(false,MessageConstant.DELETE_CHECKGROUP_FAIL);
+        }
     }
 
     /**
@@ -79,7 +81,7 @@ public class CheckGroupController {
     }
 
     /**
-     * 根据检查组合id查询对应的所有检查项id
+     * 根据检查组id查询对应的所有检查项id
      * @param id
      * @return
      */
@@ -108,24 +110,11 @@ public class CheckGroupController {
         return new Result(true,MessageConstant.EDIT_CHECKGROUP_SUCCESS);
     }
 
+
     /**
-     * 删除
-     * @param id
+     * 查询检查组的所有内容和套餐新增绑定
      * @return
      */
-    @RequestMapping("/delete")
-    public Result delete(Integer id){
-        try {
-            checkGroupService.delete(id);
-            return new Result(true,MessageConstant.DELETE_CHECKGROUP_SUCCESS);
-        }catch (RuntimeException e){
-            return new Result(false,e.getMessage());
-        }catch (Exception e){
-            return new Result(false,MessageConstant.DELETE_CHECKGROUP_FAIL);
-        }
-    }
-
-
     @RequestMapping("/findAll")
     public Result findAll(){
         List<CheckGroup> checkGroupList = checkGroupService.findAll();
@@ -134,5 +123,20 @@ public class CheckGroupController {
         }
             return new Result(false,MessageConstant.QUERY_CHECKGROUP_FAIL);
      }
+
+    /**
+     * 分页查询
+     * @param queryPageBean
+     * @return
+     */
+    @RequestMapping("/findPage")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+        PageResult pageResult = checkGroupService.pageQuery(
+                queryPageBean.getCurrentPage(),
+                queryPageBean.getPageSize(),
+                queryPageBean.getQueryString()
+        );
+        return pageResult;
+    }
 
 }

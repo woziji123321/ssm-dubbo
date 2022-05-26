@@ -28,22 +28,7 @@ public class SetmealController {
     private SetmealService setmealService;
 
     /**
-     * 分页查询
-     * @param queryPageBean
-     * @return
-     */
-    @RequestMapping("/findPage")
-    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
-        PageResult pageResult = setmealService.pageQuery(
-                queryPageBean.getCurrentPage(),
-                queryPageBean.getPageSize(),
-                queryPageBean.getQueryString()
-        );
-        return pageResult;
-    }
-
-    /**
-     * 新增
+     * 新增数据
      * @param setmeal
      * @return
      */
@@ -61,7 +46,7 @@ public class SetmealController {
     }
 
     /**
-     * 删除
+     * 删除数据
      * @param id
      * @return
      */
@@ -94,7 +79,7 @@ public class SetmealController {
     }
 
     /**
-     * 根据检查组合id查询对应的所有检查项id
+     * 根据套餐id查询对应的所有检查组id
      * @param id
      * @return
      */
@@ -112,6 +97,9 @@ public class SetmealController {
 
     /**
      * 编辑
+     * @param setmeal
+     * @param checkgroupIds
+     * @return
      */
     @RequestMapping("/edit")
     public Result edit(@RequestBody Setmeal setmeal, Integer[] checkgroupIds){
@@ -121,5 +109,21 @@ public class SetmealController {
             return new Result(false,MessageConstant.EDIT_SETMEAL_FAIL);
         }
         return new Result(true,MessageConstant.EDIT_SETMEAL_SUCCESS);
+    }
+
+
+    /**
+     * 分页显示数据
+     * @param queryPageBean
+     * @return
+     */
+    @RequestMapping("/findPage")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+        PageResult pageResult = setmealService.pageQuery(
+                queryPageBean.getCurrentPage(),
+                queryPageBean.getPageSize(),
+                queryPageBean.getQueryString()
+        );
+        return pageResult;
     }
 }

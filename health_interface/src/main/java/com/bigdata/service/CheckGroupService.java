@@ -29,8 +29,18 @@ public interface CheckGroupService {
      */
     PageResult pageQuery(Integer currentPage, Integer pageSize, String queryString);
 
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
     CheckGroup findById(Integer id);
 
+    /**
+     * 根据检查组id查询对应的所有检查项id
+     * @param id
+     * @return
+     */
     List<Integer> findCheckItemIdsByCheckGroupId(Integer id);
 
     /**
@@ -47,7 +57,7 @@ public interface CheckGroupService {
     void delete(Integer id);
 
     /**
-     * 查询所有
+     * 查询检查组的所有内容和套餐新增绑定
      * @return
      */
     List<CheckGroup> findAll();

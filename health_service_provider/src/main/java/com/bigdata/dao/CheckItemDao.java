@@ -20,14 +20,14 @@ public interface CheckItemDao {
     void add(CheckItem checkItem);
 
     /**
-     * 分页
+     * 分页查询
      * @param queryString
      * @return
      */
     Page<CheckItem> selectByCondition(String queryString);
 
     /**
-     * 检查索引
+     * 根据检查项id查询中间关系表
      * @param id
      * @return
      */
@@ -39,6 +39,11 @@ public interface CheckItemDao {
      */
     void deleteById(Integer id);
 
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
     CheckItem findById(Integer id);
 
     /**
@@ -48,7 +53,7 @@ public interface CheckItemDao {
     void edit(CheckItem checkItem);
 
     /**
-     * 查询
+     * 查询检查项的所有内容和检查组新增绑定
      * @return
      */
     List<CheckItem> findAll();

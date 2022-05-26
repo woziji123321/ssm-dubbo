@@ -34,6 +34,11 @@ public interface CheckItemService {
      */
     void delete(Integer id);
 
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
     CheckItem findById(Integer id);
 
     /**
@@ -43,7 +48,7 @@ public interface CheckItemService {
     void edit(CheckItem checkItem);
 
     /**
-     * 查询
+     * 查询检查项的所有内容和检查组新增绑定
      * @return
      */
     List<CheckItem> findAll();
