@@ -39,4 +39,16 @@ public interface CheckGroupService {
      * @param checkitemIds
      */
     void edit(CheckGroup checkGroup, Integer[] checkitemIds);
+
+    /**
+     * 删除
+     * @param id
+     */
+    void delete(Integer id);
+
+    /**
+     * 查询所有
+     * @return
+     */
+    List<CheckGroup> findAll();
 }

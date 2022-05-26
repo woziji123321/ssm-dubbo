@@ -77,6 +77,21 @@ public class CheckGroupServiceImpl implements CheckGroupService{
         checkGroupDao.edit(checkGroup);
     }
 
+    @Override
+    public void delete(Integer id) {
+        long count = checkGroupDao.findCountByCheckGroupId(id);
+        if (count > 0) {
+            //当前检查项被引用，不能删除
+            throw new RuntimeException("当前检查项被引用，不能删除");
+        }
+        this.checkGroupDao.deleteById(id);
+    }
+
+    @Override
+    public List<CheckGroup> findAll() {
+        return checkGroupDao.findAll();
+    }
+
     /**
      * 设置检查组合和检查项的关联关系
      * @param checkGroupId
@@ -92,4 +107,5 @@ public class CheckGroupServiceImpl implements CheckGroupService{
             }
         }
     }
+
 }

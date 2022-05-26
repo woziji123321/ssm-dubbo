@@ -1,7 +1,6 @@
 package com.bigdata.dao;
 
 import com.bigdata.pojo.CheckGroup;
-import com.bigdata.pojo.CheckItem;
 import com.github.pagehelper.Page;
 
 import java.util.List;
@@ -41,4 +40,23 @@ public interface CheckGroupDao {
      * @param checkGroup
      */
     void edit(CheckGroup checkGroup);
+
+    /**
+     * 检查索引
+     * @param id
+     * @return
+     */
+    long findCountByCheckGroupId(Integer id);
+
+    /**
+     * 新增
+     * @param id
+     */
+    void deleteById(Integer id);
+
+    /**
+     * 查询所有
+     * @return
+     */
+    List<CheckGroup> findAll();
 }

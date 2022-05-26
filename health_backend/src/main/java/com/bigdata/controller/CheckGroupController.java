@@ -107,4 +107,32 @@ public class CheckGroupController {
         }
         return new Result(true,MessageConstant.EDIT_CHECKGROUP_SUCCESS);
     }
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    @RequestMapping("/delete")
+    public Result delete(Integer id){
+        try {
+            checkGroupService.delete(id);
+            return new Result(true,MessageConstant.DELETE_CHECKGROUP_SUCCESS);
+        }catch (RuntimeException e){
+            return new Result(false,e.getMessage());
+        }catch (Exception e){
+            return new Result(false,MessageConstant.DELETE_CHECKGROUP_FAIL);
+        }
+    }
+
+
+    @RequestMapping("/findAll")
+    public Result findAll(){
+        List<CheckGroup> checkGroupList = checkGroupService.findAll();
+        if (checkGroupList != null&&checkGroupList.size()>0){
+            return new Result(true,MessageConstant.QUERY_CHECKGROUP_SUCCESS,checkGroupList);
+        }
+            return new Result(false,MessageConstant.QUERY_CHECKGROUP_FAIL);
+     }
+
 }

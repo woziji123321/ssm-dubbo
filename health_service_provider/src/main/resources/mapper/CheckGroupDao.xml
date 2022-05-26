@@ -18,6 +18,7 @@
             values
         (#{checkgroup_id},#{checkitem_id})
     </insert>
+
     <select id="selectByCondition" parameterType="string" resultType="com.bigdata.pojo.CheckGroup">
         select *
         from t_checkgroup
@@ -25,16 +26,31 @@
             where code = #{value} or name = #{value} or helpCode = #{value}
         </if>
     </select>
+
     <select id="findById" parameterType="int" resultType="com.bigdata.pojo.CheckGroup">
         select * from t_checkgroup where id = #{id}
     </select>
+
     <select id="findCheckItemIdsByCheckGroupId" parameterType="int" resultType="int">
         select checkitem_id from t_checkgroup_checkitem where checkgroup_id = #{id}
+    </select>
+
+    <!--根据检查项id查询中间关系表-->
+    <select id="findCountByCheckGroupId" resultType="java.lang.Long" parameterType="int">
+        select count(*) from  t_checkgroup_checkitem where checkgroup_id = #{checkgroup_id}
+    </select>
+
+    <select id="findAll" resultType="com.bigdata.pojo.CheckGroup">
+        select * from t_checkgroup
     </select>
 
     <!--根据检查组id删除中间表数据（清理原有关联关系）-->
     <delete id="deleteAssociation" parameterType="int">
         delete from t_checkgroup_checkitem where checkgroup_id = #{id}
+    </delete>
+
+    <delete id="deleteById" parameterType="int">
+        delete from t_checkgroup where id = #{id}
     </delete>
 
 
