@@ -75,6 +75,7 @@
                 img = #{img},
             </if>
         </set>
+            where id = #{id}
     </update>
 
     <!--根据检查项id查询中间关系表-->
