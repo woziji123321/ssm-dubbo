@@ -37,9 +37,9 @@ public class CheckItemController {
     public Result add(@RequestBody CheckItem checkItem){
         try {
             checkItemService.add(checkItem);
-            return new Result(true,MessageConstant.ADD_CHECKGROUP_SUCCESS);
+            return new Result(true,MessageConstant.ADD_CHECKITEM_SUCCESS);
         }catch (Exception e){
-            return new Result(false, MessageConstant.ADD_CHECKGROUP_FAIL);
+            return new Result(false, MessageConstant.ADD_CHECKITEM_FAIL);
         }
     }
 
@@ -74,7 +74,7 @@ public class CheckItemController {
         }catch (Exception e){
             e.printStackTrace();
             //服务调用失败
-            return new Result(false,MessageConstant.QUERY_CHECKGROUP_FAIL);
+            return new Result(false,MessageConstant.QUERY_CHECKITEM_FAIL);
         }
     }
 
@@ -87,10 +87,10 @@ public class CheckItemController {
     public Result edit(@RequestBody CheckItem checkItem){
         try {
             checkItemService.edit(checkItem);
-            return new Result(true,MessageConstant.EDIT_CHECKGROUP_SUCCESS);
+            return new Result(true,MessageConstant.EDIT_CHECKITEM_SUCCESS);
         }catch (Exception e){
             e.printStackTrace();
-            return new Result(false,MessageConstant.EDIT_CHECKGROUP_FAIL);
+            return new Result(false,MessageConstant.EDIT_CHECKITEM_FAIL);
         }
     }
 
