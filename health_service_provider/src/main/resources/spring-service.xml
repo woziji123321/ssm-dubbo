@@ -20,4 +20,5 @@
     <dubbo:protocol name="dubbo" port="20880"/>
     <!--批量扫描，发布服务 新建com.bigdata.service-->
     <dubbo:annotation package="com.bigdata.service"/>
+
 </beans>

@@ -161,6 +161,15 @@
                                             <el-row>
                                                 <el-col :span="24">
                                                     <el-form-item label="上传图片">
+                                                        <!--
+                                                          el-upload：上传组件
+                                                          action：上传的提交地址
+                                                          auto-upload：选中文件后是否自动上传
+                                                          name：上传文件的名称，服务端可以根据名称获得上传的文件对象
+                                                          show-file-list：是否显示已上传文件列表
+                                                          on-success：文件上传成功时的钩子
+                                                          before-upload：上传文件之前的钩子
+                                                        -->
                                                         <el-upload
                                                                 class="avatar-uploader"
                                                                 action="/setmeal/upload.do"
@@ -169,7 +178,9 @@
                                                                 :show-file-list="false"
                                                                 :on-success="handleAvatarSuccess"
                                                                 :before-upload="beforeAvatarUpload">
+                                                            <!--用于上传图片预览-->
                                                             <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                                            <!--用于展示上传图标-->
                                                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                                         </el-upload>
                                                     </el-form-item>
@@ -281,7 +292,9 @@
                                                                 :show-file-list="false"
                                                                 :on-success="handleAvatarSuccess"
                                                                 :before-upload="beforeAvatarUpload">
+                                                            <!--用于上传图片预览-->
                                                             <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                                            <!--用于展示上传图标-->
                                                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                                         </el-upload>
                                                     </el-form-item>
@@ -370,6 +383,13 @@
                 },
                 //文件上传成功后的钩子，response为服务端返回的值，file为当前上传的文件封装成的js对象
                 handleAvatarSuccess(response, file) {
+                    this.imageUrl = "http://rcjesmtcj.hd-bkt.clouddn.com/"+response.data;
+                    this.$message({
+                        message: response.message,
+                        type: response.flag ? 'success' : 'error'
+                    });
+                    //设置模型数据（图片名称），后续提交ajax请求时会提交到后台最终保存到数据库
+                    this.formData.img = response.data;
                 },
                 //上传图片之前执行
                 beforeAvatarUpload(file) {

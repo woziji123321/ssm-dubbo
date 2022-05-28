@@ -1,6 +1,7 @@
 package com.bigdata.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.bigdata.constant.RedisConstant;
 import com.bigdata.dao.SetmealDao;
 import com.bigdata.entity.PageResult;
 import com.bigdata.pojo.Setmeal;
@@ -8,6 +9,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.JedisPool;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +29,9 @@ public class SetmealServiceImpl implements SetmealService {
     @Autowired
     private SetmealDao setmealDao;
 
+    @Autowired
+    private JedisPool jedisPool;
+
     @Override
     public PageResult pageQuery(Integer currentPage, Integer pageSize, String queryString) {
         PageHelper.startPage(currentPage,pageSize);
@@ -37,7 +42,12 @@ public class SetmealServiceImpl implements SetmealService {
     @Override
     public void add(Setmeal setmeal, Integer[] checkgroupIds) {
         this.setmealDao.add(setmeal);
-        setSetmealAndCheckGroup(setmeal.getId(),checkgroupIds);
+        if(checkgroupIds != null && checkgroupIds.length > 0){
+            setSetmealAndCheckGroup(setmeal.getId(),checkgroupIds);
+        }
+
+        //将图片名称保存到Redis
+        jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_DB_RESOURCES,setmeal.getImg());
     }
 
     @Override
@@ -69,6 +79,7 @@ public class SetmealServiceImpl implements SetmealService {
         //更新检查组基本信息
         setmealDao.edit(setmeal);
     }
+
 
     private void setSetmealAndCheckGroup(Integer setmealId, Integer[] checkgroupIds) {
         if(checkgroupIds != null&&checkgroupIds.length >0){
